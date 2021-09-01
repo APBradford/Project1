@@ -1,4 +1,4 @@
-# Project1
+# DevOps Core Fundamental Project
 
 # ERD Diagram
 
