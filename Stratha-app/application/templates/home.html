@@ -1,0 +1,30 @@
+{% extends "master.html" %}
+{% block body_content %}
+    <div>
+        <div>
+            <h1>Welcome to Sratha</h1>
+        </div>
+        <div>
+            <p>To enter triathlon training progress, pleasse visit the idividual pages for the three disciplines and enter training done.</p>
+            <br>
+            <br>
+            <p>Your current training progress is:</p>            
+        </div>
+        <br>
+        <br>
+        <div>
+            <table>
+                <tr>
+                    <th>Training Week</th>
+                    <th>Total Cycling Distance</th>
+                </tr>
+                {% for week in training %}
+                <tr>
+                    <td>{{ week.training_week_id }}</td>
+                    <td>{{ week.cycle_distance }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
