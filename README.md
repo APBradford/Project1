@@ -10,7 +10,10 @@ My application is for a triathlon training tracking app. The user will be able t
 
 # Risk Assessment & Matrix
 <img width="334" alt="Risk Matrix" src="https://user-images.githubusercontent.com/88770635/132209681-0727cfcb-d9a5-4b16-930a-a8a0bf69c1cc.PNG">
-![RiskAssessment2](https://user-images.githubusercontent.com/88770635/132209854-e0e342be-e00a-4fc0-b78d-8b74e37fc52a.PNG)
+
+![RiskAssessment2](https://user-images.githubusercontent.com/88770635/132210248-ccdcfad6-e596-4ef3-907c-86bf9c72af1e.PNG)
+
+
 
 
 
