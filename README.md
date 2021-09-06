@@ -13,6 +13,16 @@ My application is for a triathlon training tracking app. The user will be able t
 
 ![RiskAssessment2](https://user-images.githubusercontent.com/88770635/132210248-ccdcfad6-e596-4ef3-907c-86bf9c72af1e.PNG)
 
+# Project Kanban Board
+
+The project kanban board at the very beginning of the project (post sprint-planning) was as followed:
+
+<img width="705" alt="Trello" src="https://user-images.githubusercontent.com/88770635/132214863-200ccabb-e6ec-4c9f-bcff-6bf67138354d.PNG">
+
+As the project is only a few days long, the project sprints were 2 days long. User stories were written for each backlog item and MoSCoW priotisation was done. An example is as follows:
+
+<img width="405" alt="User Story" src="https://user-images.githubusercontent.com/88770635/132214503-a44cd6e5-e7f0-42ff-9533-e279a7af7464.PNG">
+
 
 
 
