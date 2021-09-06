@@ -1,0 +1,8 @@
+flask
+flask_sqlalchemy
+pymysql
+flask-wtf
+wtforms
+flask_testing
+pytest
+pytest-cov
