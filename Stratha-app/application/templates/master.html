@@ -2,16 +2,20 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href= "{{ url_for('static',filename='styles/style.css') }}" type="text/css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sratha</title>
     </head>
     <body>
-        <p>Home</p>
-        <p>Cycling</p>
-        <p>Running</p>
-        <p>Swimming</p>
-        <p>Training Progress</p>
-        {% block body_content %}
-        {% endblock %}
+        <div class="sidenav">
+            <a href="{{ url_for('homepage') }}">Home</a>
+            <a href="{{ url_for('cyclepage') }}">Cycling</a>
+            <p>Running</p>
+            <p>Swimming</p>
+        </div>
+        <div class="main">
+            {% block body_content %}
+            {% endblock %}
+        </div>
     </body>
 </html>

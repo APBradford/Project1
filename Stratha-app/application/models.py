@@ -12,4 +12,5 @@ class Cycling(db.Model):
     training_week = db.Column(db.Integer, db.ForeignKey('training.training_week_id'), nullable = False)
     date = db.Column(db.String(10), nullable = False)
     distance = db.Column(db.Float, nullable = False)
+    trSession = db.Column(db.String(25), nullable = False)
     comment = db.Column(db.String(250), nullable = False)

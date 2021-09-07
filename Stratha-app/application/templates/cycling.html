@@ -1,0 +1,71 @@
+{% extends "master.html" %}
+{% block body_content %}
+<div>
+    <div>
+        <h1>Cycling</h1>
+    </div>
+    <br>
+    <br>
+    <div class="content">
+    <div class="pgCol1">
+        <div>
+        <h2>Enter a cycle:</h2>
+        </div>
+    <br>
+    <div class="form">
+        <form method='POST' action=''>
+            {{ form.hidden_tag() }}
+            {{ form.trWeek.label }}{{ form.trWeek }}
+            <br>
+            {{ form.date.label }}{{ form.date }}
+            <br>
+            {{ form.distance.label }}{{ form.distance }}
+            <br>
+            {{ form.trSession.label }}{{ form.trSession }}
+            <br>
+            {{ form.comment.label }}{{ form.comment }}
+            <br>
+            {% if form.date.errors %}
+                {% for error in form.date.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+                <br>
+            {% endif %}
+            {% if form.comment.errors %}
+            {% for error in form.comment.errors %}
+                <span class="error">{{ error }}</span>
+            {% endfor %}
+            {% endif %}
+            <br>
+            {{ form.submit }}
+        </form>
+    </div>
+    </div>
+    <div class="pgCol2">
+        <h2>Current Cycling Progress:</h2>
+        <div>
+            <table>
+                <tr>
+                    <th>Cycle No.</th>
+                    <th>Training Week</th>
+                    <th>Date</th>
+                    <th>Distance (Miles)</th>
+                    <th>Session</th>
+                    <th>Comment</th>
+                </tr>
+                {% for cycle in cycling %}
+                <tr>
+                    <td>{{ cycle.cycle_id }}</td>
+                    <td>{{ cycle.training_week }}</td>
+                    <td>{{ cycle.date }}</td>
+                    <td>{{ cycle.distance }}</td>
+                    <td>{{ cycle.trSession }}</td>
+                    <td>{{ cycle.comment }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
