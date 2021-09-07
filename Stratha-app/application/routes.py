@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request
 from application import app, db
 from application.models import Training_week, Cycling
-from application.forms import addCycleForm
+from application.forms import addCycleForm, editCycleForm
 
 @app.route('/')
 def homepage():
@@ -10,7 +10,7 @@ def homepage():
 
 @app.route('/Cycling', methods=['POST', 'GET'])
 def cyclepage():
-    form = addCycleForm()
+    form = editCycleForm()
     allCycles = Cycling.query.order_by(Cycling.training_week).all()
     if form.validate_on_submit():
         cycle = Cycling(
@@ -23,6 +23,32 @@ def cyclepage():
         db.session.add(cycle)
         db.session.commit()
         return redirect(url_for('cyclepage'))
-    else:
-        print(form.errors)
     return render_template('cycling.html', form=form, title="Cycling Training", cycling=allCycles)
+
+@app.route('/EditCycle/<int:id>', methods=['POST', 'GET'])
+def editCycle(id):
+    allCycles = Cycling.query.order_by(Cycling.training_week).all()
+    editing = Cycling.query.get(id)
+    form = editCycleForm()
+    if form.validate_on_submit():
+        editing.training_week = form.trWeek.data
+        editing.date = form.date.data
+        editing.distance = form.distance.data
+        editing.trSession = form.trSession.data
+        editing.comment = form.comment.data
+        db.session.commit()
+        return redirect(url_for('cyclepage'))
+    elif request.method == 'GET':
+        form.trWeek.data = editing.training_week
+        form.date.data = editing.date
+        form.distance.data = editing.distance
+        form.trSession.data = editing.trSession
+        form.comment.data = editing.comment
+    return render_template('editCycling.html', form=form, title="Cycling Training", cycling=allCycles, cycleId=id)
+
+@app.route('/DeleteCycle/<int:id>', methods=['POST', 'GET'])
+def deleteCycle(id):
+    editing = Cycling.query.get(id)
+    db.session.delete(editing)
+    db.session.commit()
+    return redirect(url_for('cyclepage'))
