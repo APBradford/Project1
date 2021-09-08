@@ -40,6 +40,10 @@ p {
   width: 100%;
 }
 
+#home {
+  width: auto;
+}
+
 .training td, th {
   border: 1px solid #00000059;
   padding: 8px;

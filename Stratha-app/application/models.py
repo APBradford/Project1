@@ -3,7 +3,7 @@ from application import db
 class Training_week(db.Model):
     __tablename__ = "training"
     training_week_id = db.Column(db.Integer, primary_key = True)
-    cycles = db.relationship('Cycling', backref='training-week', lazy=True)
+    cycles = db.relationship('Cycling', backref='trainingWeek', lazy=True)
     cycle_distance = db.Column(db.Float, nullable = False)
 
 class Cycling(db.Model):
