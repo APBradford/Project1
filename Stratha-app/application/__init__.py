@@ -1,12 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from os import getenv
 
 app = Flask(__name__)
 
 #Link database
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:rootroot@database1.caa4whfgo9eq.eu-west-1.rds.amazonaws.com:3306/database1"
-
-app.config['SECRET_KEY'] = 'Test'
+app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE_URI')
+app.config['SECRET_KEY'] = getenv('DB_SECRET')
 
 #Ignore track modifications warning
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
