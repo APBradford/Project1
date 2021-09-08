@@ -29,15 +29,17 @@ class addCycleForm(FlaskForm):
         year = int(year)
         month = int(month)
         day = int(day)
-        currentYear = datetime.today().year
-        currentMonth = datetime.today().month
-        currentDay = datetime.today().day
+        currentYear = int(datetime.today().year)
+        currentMonth = int(datetime.today().month)
+        currentDay = int(datetime.today().day)
         if year > currentYear:
             raise ValidationError("Liar! - You can't exercise in the future")
-        elif month > currentMonth:
-            raise ValidationError("Liar! - You can't exercise in the future")
-        elif day > currentDay:
-            raise ValidationError("Liar! - You can't exercise in the future")
+        elif year == currentYear:
+            if month > currentMonth:
+                raise ValidationError("Liar! - You can't exercise in the future")
+            elif month == currentMonth: 
+                if day > currentDay:    
+                    raise ValidationError("Liar! - You can't exercise in the future")
 
     distance = DecimalField("Distance (Miles): ", places=2, validators=[DataRequired()])
     trSession = SelectField("Training Session: ", choices=[
@@ -85,15 +87,17 @@ class editCycleForm(FlaskForm):
         year = int(year)
         month = int(month)
         day = int(day)
-        currentYear = datetime.today().year
-        currentMonth = datetime.today().month
-        currentDay = datetime.today().day
+        currentYear = int(datetime.today().year)
+        currentMonth = int(datetime.today().month)
+        currentDay = int(datetime.today().day)
         if year > currentYear:
             raise ValidationError("Liar! - You can't exercise in the future")
-        elif month > currentMonth:
-            raise ValidationError("Liar! - You can't exercise in the future")
-        elif day > currentDay:
-            raise ValidationError("Liar! - You can't exercise in the future")
+        elif year == currentYear:
+            if month > currentMonth:
+                raise ValidationError("Liar! - You can't exercise in the future")
+            elif month == currentMonth: 
+                if day > currentDay:    
+                    raise ValidationError("Liar! - You can't exercise in the future")
 
     distance = DecimalField("Distance (Miles): ", validators=[DataRequired()])
     trSession = SelectField("Training Session: ", choices=[
