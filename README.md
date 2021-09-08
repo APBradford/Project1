@@ -4,9 +4,13 @@ This project is to create a Create, Read, Update and Delete (CRUD) application c
 
 My application is for a triathlon training tracking app. The user will be able to enter/veiw training data for running, swimming and cycling indiviudally. The application will then automatically create a fourth table, which takes data for each indivual activity and show the training totals for that week.
 
+The MVP for the application will be having the pages, tables and CRUD features for Cycling and Training week.
+
 # ERD Diagram
 
-<img width="892" alt="ERD" src="https://user-images.githubusercontent.com/88770635/131639321-d41bd949-49ea-48e3-a994-4b0d151aa681.PNG">
+Below is the ERD digaram for the MySQL database. It shows the one to many relationship between the Cycling, Running, Swimming tables with the training week tables. The yellow highlighted tables are the MVP.
+
+<img width="855" alt="ERD" src="https://user-images.githubusercontent.com/88770635/132582017-f2294821-4a48-4ccc-aa80-9eb1133d1742.PNG">
 
 # Risk Assessment & Matrix
 <img width="334" alt="Risk Matrix" src="https://user-images.githubusercontent.com/88770635/132209681-0727cfcb-d9a5-4b16-930a-a8a0bf69c1cc.PNG">
