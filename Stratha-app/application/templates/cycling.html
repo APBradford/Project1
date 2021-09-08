@@ -13,57 +13,66 @@
         </div>
     <br>
     <div class="form">
-        <form method='POST' action=''>
-            {{ form.hidden_tag() }}
-            {{ form.trWeek.label }}{{ form.trWeek }}
-            <br>
-            {{ form.date.label }}{{ form.date }}
-            <br>
-            {{ form.distance.label }}{{ form.distance }}
-            <br>
-            {{ form.trSession.label }}{{ form.trSession }}
-            <br>
-            {{ form.comment.label }}{{ form.comment }}
-            <br>
-            {% if form.date.errors %}
+        <table>
+            <form method='POST' action=''>
+                {{ form.hidden_tag() }}
+                <tr><td>{{ form.trWeek.label }}</td><td>{{ form.trWeek }}</td></tr>
+                <tr><td>{{ form.date.label }}</td><td>{{ form.date }}</td></tr>
+                <tr><td>{{ form.distance.label }}</td><td>{{ form.distance }}</td></tr>
+                <tr><td>{{ form.trSession.label }}</td><td>{{ form.trSession }}</td></tr>
+                <tr><td>{{ form.comment.label }}</td><td>{{ form.comment }}</td></tr>
+                <tr><td>{{ form.submit }}</td></tr>
+            </table>
+                {% if form.date.errors %}
                 {% for error in form.date.errors %}
-                    <span class="error">{{ error }}</span>
+                    <span class="error">Date: {{ error }}</span>
+                    <br>
+                    <span class="error">Please enter date in format yyyy:mm:dd hh:mm:ss</span>
                 {% endfor %}
                 <br>
-            {% endif %}
-            {% if form.comment.errors %}
-            {% for error in form.comment.errors %}
-                <span class="error">{{ error }}</span>
-            {% endfor %}
-            {% endif %}
-            <br>
-            {{ form.submit }}
-        </form>
+                {% endif %}
+                {% if form.comment.errors %}
+                    {% for error in form.comment.errors %}
+                    <span class="error">{{ error }}</span>
+                    <br>
+                    {% endfor %}
+                {% endif %}
+                {% if form.errors %}
+                    {% for error in form.errors %}
+                    <span class="error">Invalid Entry: {{ error }}</span>
+                    <br>
+                    {% endfor %}
+                {% endif %}
+            </form>
     </div>
     </div>
     <div class="pgCol2">
         <h2>Current Cycling Progress:</h2>
         <div>
-            <table>
+            <table class="training">
                 <tr>
-                    <th>Cycle No.</th>
                     <th>Training Week</th>
                     <th>Date</th>
                     <th>Distance (Miles)</th>
                     <th>Session</th>
                     <th>Comment</th>
+                    <th>Edit</th>
                 </tr>
                 {% for cycle in cycling %}
                 <tr>
-                    <td>{{ cycle.cycle_id }}</td>
                     <td>{{ cycle.training_week }}</td>
                     <td>{{ cycle.date }}</td>
                     <td>{{ cycle.distance }}</td>
                     <td>{{ cycle.trSession }}</td>
                     <td>{{ cycle.comment }}</td>
-                    <td><form action='{{ url_for ("editCycle", id=cycle.cycle_id) }}'><input type=submit value="Edit Entry"></form></td>
+                    <td class="edit"><form action='{{ url_for ("editCycle", id=cycle.cycle_id) }}'><input type=submit value="Edit Entry"></form></td>
                 </tr>
                 {% endfor %}
+            </table>
+            <br>
+            <br>
+            <table>
+                <tr><td><h2>You have cycled a total of {{ formatDistance }} Miles! </h2></td></tr>
             </table>
         </div>
     </div>

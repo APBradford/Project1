@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 #Link database
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:rootroot@database1.caa4whfgo9eq.eu-west-1.rds.amazonaws.com:3306/database1"
 
 app.config['SECRET_KEY'] = 'Test'
 

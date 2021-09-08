@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, ValidationError, Length
-from wtforms import StringField, IntegerField, DecimalField, DateField, SelectField, SubmitField
+from wtforms import StringField, IntegerField, DecimalField, SelectField, SubmitField, DateTimeField
+from datetime import datetime
 
 class addCycleForm(FlaskForm):
     trWeek = SelectField("Training week: ", choices=[
@@ -17,16 +18,28 @@ class addCycleForm(FlaskForm):
         ("11", "11"),
         ("12", "12"),
     ])
-    date = StringField("Date (xx/xx/xxxx): ", validators=[DataRequired(), Length(min=10, max=10)])
-    
-    def validate_date(form, date):
-        vDate = date.data
-        if vDate[2] != "/":
-            raise ValidationError("Invalid Date Format Entered, Please Use xx/xx/xxxx")
-        elif vDate[5] != "/":
-            raise ValidationError("Invalid Date Format Entered, Please Use xx/xx/xxxx")
 
-    distance = DecimalField("Distance (Miles): ")
+    date = DateTimeField("Date: ", format='%Y-%m-%d %H:%M:%S', default=datetime.today, validators=[DataRequired()])
+
+    #Custome validator to ensure date entered isnt in the future
+    def validate_date(form, date):
+        vDate = str(date.data)
+        onlyDate = vDate[:10]
+        year, month, day = onlyDate.split('-')
+        year = int(year)
+        month = int(month)
+        day = int(day)
+        currentYear = datetime.today().year
+        currentMonth = datetime.today().month
+        currentDay = datetime.today().day
+        if year > currentYear:
+            raise ValidationError("Liar! - You can't exercise in the future")
+        elif month > currentMonth:
+            raise ValidationError("Liar! - You can't exercise in the future")
+        elif day > currentDay:
+            raise ValidationError("Liar! - You can't exercise in the future")
+
+    distance = DecimalField("Distance (Miles): ", places=2, validators=[DataRequired()])
     trSession = SelectField("Training Session: ", choices=[
         ("Easy", "Easy"),
         ("Tempo", "Tempo"),
@@ -34,8 +47,9 @@ class addCycleForm(FlaskForm):
         ("Hills", "Hills"),
         ("Endurance", "Endurance"),
     ])
-    comment = StringField("Comment: ", validators=[Length(max=250)])
+    comment = StringField("Comment: ", validators=[Length(max=100)])
 
+    #Preventing use of special characters to help protect against injection attacks
     def validate_comment(form, comment):
         specialchars = '$£!%^&*?=-\/'
         comment = comment.data
@@ -61,16 +75,27 @@ class editCycleForm(FlaskForm):
         ("11", "11"),
         ("12", "12"),
     ])
-    date = StringField("Date (xx/xx/xxxx): ", validators=[DataRequired(), Length(min=10, max=10)])
-    
-    def validate_date(form, date):
-        vDate = date.data
-        if vDate[2] != "/":
-            raise ValidationError("Invalid Date Format Entered, Please Use xx/xx/xxxx")
-        elif vDate[5] != "/":
-            raise ValidationError("Invalid Date Format Entered, Please Use xx/xx/xxxx")
+    date = DateTimeField("Date: ", format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
 
-    distance = DecimalField("Distance (Miles): ")
+    #Custome validator to ensure date entered isnt in the future
+    def validate_date(form, date):
+        vDate = str(date.data)
+        onlyDate = vDate[:10]
+        year, month, day = onlyDate.split('-')
+        year = int(year)
+        month = int(month)
+        day = int(day)
+        currentYear = datetime.today().year
+        currentMonth = datetime.today().month
+        currentDay = datetime.today().day
+        if year > currentYear:
+            raise ValidationError("Liar! - You can't exercise in the future")
+        elif month > currentMonth:
+            raise ValidationError("Liar! - You can't exercise in the future")
+        elif day > currentDay:
+            raise ValidationError("Liar! - You can't exercise in the future")
+
+    distance = DecimalField("Distance (Miles): ", validators=[DataRequired()])
     trSession = SelectField("Training Session: ", choices=[
         ("Easy", "Easy"),
         ("Tempo", "Tempo"),
@@ -78,8 +103,9 @@ class editCycleForm(FlaskForm):
         ("Hills", "Hills"),
         ("Endurance", "Endurance"),
     ])
-    comment = StringField("Comment: ", validators=[Length(max=250)])
+    comment = StringField("Comment: ", validators=[Length(max=100)])
 
+    #Preventing use of special characters to help protect against injection attacks
     def validate_comment(form, comment):
         specialchars = '$£!%^&*?=-\/'
         comment = comment.data
