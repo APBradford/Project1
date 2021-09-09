@@ -4,6 +4,6 @@ Description=Sratha app service
 User=jenkins
 WorkingDirectory=/opt/Sratha-app
 EnvironmentFile=/opt/Stratha-app/Stratha.env
-ExecStart=/bin/sh -c 'cd/opt/Stratha-app && . ./venv/bin/activate && python3 create.py && python3 app.py'
+ExecStart=/bin/sh -c 'cd /opt/Stratha-app && . ./venv/bin/activate && python3 create.py && python3 app.py'
 [Install]
 WantedBy=multi-user.target
