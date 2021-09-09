@@ -1,10 +1,11 @@
 from application import db
 from application.models import Cycling, Training_week
 
-#REMOVE FOR FINAL PRODUCT
 db.drop_all()
-#REMOVE FOR FINAL PRODUCT
+
 db.create_all()
+
+#Create blank entries for the 12 training weeks
 tw1 = Training_week(cycle_distance=0)
 tw2 = Training_week(cycle_distance=0)
 tw3 = Training_week(cycle_distance=0)

@@ -1,15 +1,17 @@
 from flask import url_for
-from flask_testing import TestCase
+from flask_testing import TestCase, LiveServerTestCase
 from application import app, db
 from application.models import Training_week, Cycling
 from application.forms import addCycleForm, editCycleForm
 from datetime import datetime
+from selenium import webdriver
+from os import getenv
 
 class TestBase(TestCase):
     def create_app(self):
 
         app.config.update(SQLALCHEMY_DATABASE_URI="sqlite:///",
-            SECRET_KEY='TEST_SECRET_KEY',
+            SECRET_KEY= getenv('DB_SECRET'),
             DEBUG=True,
             WTF_CSRF_ENABLED=False
             )
@@ -91,3 +93,41 @@ class TestPages(TestBase):
         response = self.client.get(url_for('cyclepage'))
         self.assertIn(b'Edited Cycle', response.data)
 
+class IntTestBase(LiveServerTestCase):
+    def create_app(self):
+        app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DATABASE2_URI')
+        app.config['SECRET_KEY'] = getenv('DB_SECRET')
+        return app
+
+    def setUp(self):
+        #driver = webdriver.Chrome(executable_path='/usr/bin/')
+        chrome_options = webdriver.chrome.options.Options()
+        chrome_options.add_argument('--headless')
+
+        self.driver = webdriver.Chrome(options=chrome_options)
+        db.create_all()
+        self.driver.get(f'http://localhost:5000/')
+
+    def tearDown(self):
+        self.driver.quit()
+        db.drop_all()
+
+class TestCycling(IntTestBase):
+    def testFormValidation(self):
+        self.driver.get(f'http://localhost:5000/Cycling')
+        
+        #Test whether a blank input for date returns the correct error message
+        date_input = self.driver.find_element_by_xpath('//*[@id="date"]')
+        date_input.send_keys(' ')
+
+        distance_input = self.driver.find_element_by_xpath('//*[@id="distance"]')
+        distance_input.send_keys('40')
+
+        comment_input = self.driver.find_element_by_xpath('//*[@id="comment"]')
+        comment_input.send_keys("Input Testing")
+
+        self.driver.find_element_by_xpath('//*[@id="submit"]').click()
+        errorText = self.driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div[1]/div[2]/span[1]').text
+        self.assertIn("Date: This field is required", errorText)
+        
+        
