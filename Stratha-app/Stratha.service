@@ -1,5 +1,5 @@
 [Unit]
-Description=Sratha app service
+Description=Stratha app service
 [Service]
 User=jenkins
 WorkingDirectory=/opt/Sratha-flask-app
