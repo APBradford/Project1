@@ -72,7 +72,6 @@ def deleteCycle(id):
     editing = Cycling.query.get(id)
     twId = editing.training_week
     twEditing = Training_week.query.get(twId)
-    print(twEditing)
     twEditing.cycle_distance = float(twEditing.cycle_distance) - float(editing.distance)
     db.session.delete(editing)
     db.session.commit()
