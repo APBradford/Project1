@@ -1,0 +1,34 @@
+{% extends "master.html" %}
+{% block body_content %}
+    <div>
+        <div>
+            <h1>Welcome to Sratha</h1>
+        </div>
+        <div>
+            <p>To enter training progress, please visit the activity pages and enter training done.</p>
+            <br>
+            <h2>Your current training progress is:</h2>            
+        </div>
+        <br>
+        <div>
+            <table class="training" id="home">
+                <tr>
+                    <th>Training Week</th>
+                    <th>Activity Totals</th>
+                    <th>Total Cycling Distance</th>
+                </tr>
+                {% for week in training %}
+                <tr>
+                    <td>{{ week.training_week_id }}</td>
+                    {% set count = namespace(value=0) %}
+                    {% for activity in week.cycles %}
+                        {% set count.value = count.value + 1 %}
+                    {% endfor %}
+                    <td>{{count.value}} Cycles</td>
+                    <td>{{ week.cycle_distance }} Miles</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
